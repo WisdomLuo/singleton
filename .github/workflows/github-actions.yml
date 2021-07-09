@@ -1,7 +1,14 @@
 name: github-actions
 on: [push]
 jobs:
-  check-bats-version:
+  check-header:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - run: python -V
+  unit-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -10,7 +17,26 @@ jobs:
           distribution: 'adopt'
           java-version: '8'
       - run: java -version
-      - uses: actions/setup-python@v2
+      - run: pwd && ls -la
+  code-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - run: java -version
+#       - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
         with:
-          python-version: '3.5'
-      - run: python -V
+          distribution: 'adopt'
+          java-version: '11'
+      - run: java -version
+      - run: pwd && ls -la
+  smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+#       - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '8'
+      - run: java -version
+      - run: pwd && ls -la
+  

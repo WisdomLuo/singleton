@@ -10,4 +10,7 @@ jobs:
           distribution: 'adopt'
           java-version: '8'
       - run: java -version
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.5'
       - run: python -V

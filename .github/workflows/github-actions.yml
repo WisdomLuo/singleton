@@ -10,3 +10,4 @@ jobs:
           distribution: 'adopt'
           java-version: '8'
       - run: java -version
+      - run: python -V

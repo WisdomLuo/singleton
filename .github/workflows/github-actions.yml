@@ -24,7 +24,7 @@ jobs:
           java-version: '8'
       - run: java -version
       - run: pwd && ls -la
-      - run: echo $GITHUB_ACTION_PATH
+      - run: echo $GITHUB_WORKSPACE
 
           
           

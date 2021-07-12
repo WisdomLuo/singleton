@@ -25,9 +25,12 @@ jobs:
       - run: java -version
       - run: pwd && ls -la
       - run: echo $GITHUB_WORKSPACE
-
-          
-          
+      - run: python -V
+      - run: |
+          pip -V
+          pip list
+          cd $GITHUB_WORKSPACE/g11n-ws
+          ./gradlew test --console=plain
   code-scan:
     name: Code Scan
     runs-on: ubuntu-latest

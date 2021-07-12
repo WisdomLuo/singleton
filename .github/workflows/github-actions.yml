@@ -12,7 +12,7 @@ jobs:
   unit-test:
     name: Unit Test
     runs-on: ubuntu-latest
-    needs: check-header
+#     needs: check-header
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 8
@@ -30,11 +30,13 @@ jobs:
     runs-on: ubuntu-latest
 #     needs: unit-test
     steps:
-#       - uses: actions/setup-java@v2
-#         with:
-#           distribution: 'adopt'
-#           java-version: '8'
-#       - run: java -version
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '8'
+      - run: java -version
+      - run: git clone --branch=devops https://github.com/vmware/singleton.git devops
+      - run: pwd && ls -la
 #       - uses: actions/setup-java@v2
 #         with:
 #           distribution: 'adopt'

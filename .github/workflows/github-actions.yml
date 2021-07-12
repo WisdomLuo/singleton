@@ -23,12 +23,8 @@ jobs:
           distribution: 'adopt'
           java-version: '8'
       - run: java -version
-      - run: pwd && ls -la
-      - run: echo $GITHUB_WORKSPACE
-      - run: python -V
-      - run: |
-          pip -V
-          pip list
+      - name: run unit test
+        run: |
           cd $GITHUB_WORKSPACE/g11n-ws
           ./gradlew test --console=plain
   code-scan:

@@ -29,9 +29,6 @@ jobs:
     env: TEST=smoke_test
 script: >
   if [ x${TEST} = xcheck_header ]; then
-    echo "-------------------"
-    echo $TRAVIS_COMMIT_RANGE
-    echo "==================="
     git clone --branch=devops https://github.com/vmware/singleton.git devops
     cp $TRAVIS_BUILD_DIR/devops/check_headers.py .
     chmod +x check_headers.py
@@ -51,6 +48,11 @@ script: >
     rm -f $SONARSCANNER.zip
     str=$(printf '=%.0s' {1..50})
     echo $str Code Scan Start $str
+    echo "-------------------"
+    echo $SONAR_ORG
+    echo $TRAVIS_BRANCH
+    echo $SONAR_TOKEN
+    echo "==================="
     cd $TRAVIS_BUILD_DIR/devops/sonar/ && python ./config_sonar_project.py -ProjectName=$SONAR_ORG-singleton-service-$TRAVIS_BRANCH -ProjectKey=$SONAR_ORG-singleton-service-$TRAVIS_BRANCH -OrgKey=$SONAR_ORG -QualityGateName=service-gate -QualityGateConditions="./quality_gates/service_quality_gate.json" -SonarToken=$SONAR_TOKEN
     cd $TRAVIS_BUILD_DIR/g11n-ws && sed -i "s/rootProject.name = 'vip'/rootProject.name = '$SONAR_ORG-singleton-service-$TRAVIS_BRANCH'/" settings.gradle && cat settings.gradle
     cd $TRAVIS_BUILD_DIR/g11n-ws && ./gradlew test jacocoTestReport

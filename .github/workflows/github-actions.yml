@@ -1,24 +1,6 @@
 name: github-actions
 on: [pull_request, push]
-jobs:
-  which_branch:
-    runs-on: ubuntu-latest
-    steps:
-      # extract branch name
-      - name: Extract branch name
-        if: github.event_name != 'pull_request'
-        shell: bash
-        run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
-        id: extract_branch
-
-      # extract branch name on pull request
-      - name: Print branch name
-        if: github.event_name == 'pull_request'
-        run: echo "BRANCH_NAME=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
-
-      # print branch name
-      - name: Get branch name
-        run: echo 'The branch name is' $BRANCH_NAME
+jobs:      
   check-header:
     name: Check Header
     runs-on: ubuntu-latest
@@ -46,7 +28,6 @@ jobs:
   code-scan:
     name: Code Scan
     runs-on: ubuntu-latest
-    needs: which_branch
     env: 
       SONAR_ORG: ${{ secrets.SONAR_ORG }}
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -58,7 +39,17 @@ jobs:
           java-version: '8'
       - run: java -version
       - run: git clone --branch=devops https://github.com/vmware/singleton.git devops
-      - run: pwd && ls -la
+      # extract branch name
+      - name: Extract branch name
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+        id: extract_branch
+      # extract branch name on pull request
+      - name: Print branch name
+        if: github.event_name == 'pull_request'
+        run: echo "BRANCH_NAME=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
+      # print branch name
       - name: Get branch name
         run: echo 'The branch name is' $BRANCH_NAME
       - name: config sonar project
@@ -72,8 +63,8 @@ jobs:
         with:
           projectBaseDir: g11n-ws
           args: >
-            -Dsonar.projectKey=$SONAR_ORG-singleton-service-${GITHUB_REF#refs/heads/}
-            -Dsonar.projectName=$SONAR_ORG-singleton-service-${GITHUB_REF#refs/heads/}
+            -Dsonar.projectKey=$SONAR_ORG-singleton-service-$BRANCH_NAME
+            -Dsonar.projectName=$SONAR_ORG-singleton-service-$BRANCH_NAME
             -Dsonar.sources=.
             -Dsonar.language=java
             -Dsonar.sourceEncoding=UTF-8

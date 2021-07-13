@@ -64,7 +64,7 @@ jobs:
           projectBaseDir: g11n-ws
           args: >
             -Dsonar.projectKey=wisdomluo-singleton-service-master
-            -Dsonar.projectName=wisdomluo-singleton-service-$BRANCH_NAME
+            -Dsonar.projectName=wisdomluo-singleton-service-master
             -Dsonar.sources=.
             -Dsonar.language=java
             -Dsonar.sourceEncoding=UTF-8

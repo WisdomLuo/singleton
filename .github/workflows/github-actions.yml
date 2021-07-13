@@ -57,7 +57,6 @@ jobs:
             -Dsonar.sources=.
             -Dsonar.language=java
             -Dsonar.sourceEncoding=UTF-8
-            -Dsonar.branch.name=master
             -Dsonar.organization=$SONAR_ORG
             -Dsonar.exclusions=tools/tool-cldr-extractor/**,**/*.py,**/*.xml,**/*.css,**/*.js,**/*.html
             -Dsonar.java.binaries=vip-manager-i18n/build/classes/java,vip-manager-l10n/build/classes/java,vip-manager-lite-i18n/build/classes/java

@@ -63,12 +63,12 @@ jobs:
         with:
           projectBaseDir: g11n-ws
           args: >
-            -Dsonar.projectKey=${SONAR_ORG}-singleton-service-master
-            -Dsonar.projectName=${SONAR_ORG}-singleton-service-master
+            -Dsonar.projectKey=$SONAR_ORG-singleton-service-master
+            -Dsonar.projectName=$SONAR_ORG-singleton-service-master
             -Dsonar.sources=.
             -Dsonar.language=java
             -Dsonar.sourceEncoding=UTF-8
-            -Dsonar.organization=${SONAR_ORG}
+            -Dsonar.organization=$SONAR_ORG
             -Dsonar.exclusions=tools/tool-cldr-extractor/**,**/*.py,**/*.xml,**/*.css,**/*.js,**/*.html
             -Dsonar.java.binaries=vip-manager-i18n/build/classes/java,vip-manager-l10n/build/classes/java,vip-manager-lite-i18n/build/classes/java
             -Dsonar.java.test.binaries=vip-manager-i18n/build/classes/test,vip-manager-l10n/build/classes/test,vip-manager-lite-i18n/build/classes/test

@@ -19,4 +19,4 @@ jobs:
 
       # print branch name
       - name: Get branch name
-        run: echo 'The branch name is' env.$BRANCH_NAME
+        run: echo 'The branch name is' $BRANCH_NAME

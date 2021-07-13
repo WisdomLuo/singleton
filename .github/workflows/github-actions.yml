@@ -38,12 +38,18 @@ jobs:
       - run: java -version
       - run: git clone --branch=devops https://github.com/vmware/singleton.git devops
       - run: pwd && ls -la
+      - name: config sonar project
+        run: cd $GITHUB_WORKSPACE/devops/sonar/ && python ./config_sonar_project.py -ProjectName=$SONAR_ORG-singleton-service-${GITHUB_REF#refs/heads/} -ProjectKey=$SONAR_ORG-singleton-service-${GITHUB_REF#refs/heads/} -OrgKey=$SONAR_ORG -QualityGateName=service-gate -QualityGateConditions="./quality_gates/service_quality_gate.json" -SonarToken=$SONAR_TOKEN
+      - name: change setting for gradle
+        run: cd $GITHUB_WORKSPACE/g11n-ws && sed -i "s/rootProject.name = 'vip'/rootProject.name = '$SONAR_ORG-singleton-service-${GITHUB_REF#refs/heads/}'/" settings.gradle && cat settings.gradle
+      - name: generate coverage file
+        run: cd $GITHUB_WORKSPACE/g11n-ws && ./gradlew test jacocoTestReport
 #       - uses: actions/setup-java@v2
 #         with:
 #           distribution: 'adopt'
 #           java-version: '11'
       - run: java -version
-      - run: echo $GITHUB_REF
+      - run: echo ${GITHUB_REF#refs/heads/}
       - run: echo $SONAR_ORG
         env: 
           SONAR_ORG: ${{ secrets.SONAR_ORG }}

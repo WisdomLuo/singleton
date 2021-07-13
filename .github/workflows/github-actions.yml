@@ -57,8 +57,6 @@ jobs:
             -Dsonar.sources=.
             -Dsonar.language=java
             -Dsonar.sourceEncoding=UTF-8
-            -Dsonar.host.url=https://sonarcloud.io
-            -Dsonar.login=$SONAR_TOKEN
             -Dsonar.branch.name=master
             -Dsonar.organization=$SONAR_ORG
             -Dsonar.exclusions=tools/tool-cldr-extractor/**,**/*.py,**/*.xml,**/*.css,**/*.js,**/*.html

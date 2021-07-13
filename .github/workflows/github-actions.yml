@@ -41,6 +41,8 @@ jobs:
       - run: java -version
       - run: git clone --branch=devops https://github.com/vmware/singleton.git devops
       - run: pwd && ls -la
+      - name: Get branch name
+        run: echo 'The branch name is' $BRANCH_NAME
       - name: config sonar project
         run: cd $GITHUB_WORKSPACE/devops/sonar/ && python ./config_sonar_project.py -ProjectName=$SONAR_ORG-singleton-service-${GITHUB_REF#refs/heads/} -ProjectKey=$SONAR_ORG-singleton-service-${GITHUB_REF#refs/heads/} -OrgKey=$SONAR_ORG -QualityGateName=service-gate -QualityGateConditions="./quality_gates/service_quality_gate.json" -SonarToken=$SONAR_TOKEN
       - name: change setting for gradle

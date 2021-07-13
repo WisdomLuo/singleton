@@ -44,7 +44,7 @@ jobs:
       - name: config sonar project
         run: cd $GITHUB_WORKSPACE/devops/sonar/ && python ./config_sonar_project.py -ProjectName=$SONAR_ORG-singleton-service-${GITHUB_REF#refs/heads/} -ProjectKey=$SONAR_ORG-singleton-service-${GITHUB_REF#refs/heads/} -OrgKey=$SONAR_ORG -QualityGateName=service-gate -QualityGateConditions="./quality_gates/service_quality_gate.json" -SonarToken=$SONAR_TOKEN
       - name: change setting for gradle
-        run: cd $GITHUB_WORKSPACE/g11n-ws && sed -i "s/rootProject.name = 'vip'/rootProject.name = '$SONAR_ORG-singleton-service-${GITHUB_REF#refs/heads/}'/" settings.gradle && cat settings.gradle
+        run: cd $GITHUB_WORKSPACE/g11n-ws && sed -i "s/rootProject.name = 'singleton'/rootProject.name = '$SONAR_ORG-singleton-service-${GITHUB_REF#refs/heads/}'/" settings.gradle && cat settings.gradle
       - name: generate coverage file
         run: cd $GITHUB_WORKSPACE/g11n-ws && ./gradlew test jacocoTestReport
       - name: Analyze with SonarCloud
